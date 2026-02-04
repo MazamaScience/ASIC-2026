@@ -1,6 +1,6 @@
 # Workshop on R packages for Air Quality Data
 
-_Last updated February 03, 2026_
+_Last updated February 04, 2026_
 
 ----
 
@@ -20,15 +20,17 @@ simple, easy-to-learn coding style.
 ## Goals
 
 Attendees will become familiar with the **AirMonitor** and **AirSensor2** R
-packages and will be able to quickly download, process and visualize large
-amounts of monitor and sensor data. Various analysis functions will be
-introduced and users will be able to choose their own sensors and monitors to
-create QC reports and end-user graphics.
+packages and will be able to quickly download, process and visualize data from
+AirNow and OpenAQ as well as sensor manufacturers PurpleAir and Clarity.
+Various analysis and data visualization functions will be introduced but the
+focus will be on data access and the creation of uniform dataframes of hourly
+measurements appropriate for use in research studies and reports.
 
 ## Audience
 
 The R packages presented are designed for individuals who sometimes need to work
-independently (without the support of IT staff) and provide functionality for data ingest and manipulation.
+independently (without the support of IT staff) and provide functionality for
+data ingest and manipulation.
 The target audience includes anyone who works with Air Quality data from
 regulatory monitors and low cost sensors and who is a regular user of R/RStudio.
 Attendees should have a basic understanding of R data types and common functions.
@@ -64,7 +66,7 @@ an invitation to join from jonathan.callahan@dri.com.
 files _before_ the workshop begins.**
 
 As with any hands-on workshop, advanced preparation by individuals will allow
-us to quickly dive into data analysis. Please ensure that the following software
+us to quickly start working with data. Please ensure that the following software
 and data files have been installed on your laptop in advance of the workshop:
 
 ## R and RStudio
@@ -72,15 +74,17 @@ and data files have been installed on your laptop in advance of the workshop:
 This workshop is designed for those who are already familiar with R and RStudio
 and use them on a regular basis.
 
-Ensure that you are running [R](https://www.r-project.org) version 4.0 or higher.
+Ensure that you are running [R](https://www.r-project.org) version 4.4 or higher.
 
 Ensure that you have installed [RStudio Desktop](https://posit.co/download/rstudio-desktop/)
-version 2023.03 or higher.
+version 2025.09 or higher.
+
+# TODO:  install appropriate packages with `pak`
 
 ## CRAN packages
 
 Most _(but not all)_ of the packages we will be using are available on CRAN.
-The easiest way to install these is to install the **AirMonitor** (>= 0.4.0)
+The easiest way to install these is to install the **AirMonitor** (>= 0.4.5)
 package which will recursively install all dependency packages.
 
 At the RStudio Console prompt type:

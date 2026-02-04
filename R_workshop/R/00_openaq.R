@@ -3,15 +3,17 @@
 # ------------------------------------------------------------------------------
 # openaq-r
 
-install.packages("pak")
+###install.packages("pak")
 
-pak::pkg_install("openaq/openaq-r@*release")
+###pak::pkg_install("openaq/openaq-r@*release")
 
 # Register for an account at: https://explore.openaq.org/register
 #
 # - Need to request an API key (no email sent)
 # - Then try to log in and use "forgot password" (email sent)
 # - Change password and then log in; go to user settings to see api key
+
+library(dplyr)
 
 library(dotenv)
 dotenv::load_dot_env()
@@ -51,7 +53,7 @@ locations <-
   locations %>%
   dplyr::mutate(
     datetime_first = lubridate::as_datetime(datetime_first),
-    datetime_last = lubridate::as_datetime(datetime_last)
+    datetime_last = lubridate::as_datetime(datetime_last),
   )
 
 MazamaLocationUtils::table_leaflet(
@@ -78,12 +80,14 @@ MazamaLocationUtils::table_leaflet(
 datetime_from <- MazamaCoreUtils::parseDatetime("2019-01-01", timezone = "UTC")
 datetime_to <- MazamaCoreUtils::parseDatetime("2019-09-23", timezone = "UTC")
 
-data <-
-  list_location_measurements(
-    locations_id = 7843,
-    datetime_from = datetime_from,
-    datetime_to = datetime_to
-  )
+# DOESN'T WORK
+#
+# data <-
+#   list_location_measurements(
+#     locations_id = 7843,
+#     datetime_from = datetime_from,
+#     datetime_to = datetime_to
+#   )
 
 # Best to get sensors for a location
 
@@ -102,6 +106,50 @@ data_df <-
     limit = 1000
   )
 
+# Looks like one sensor per paramter_id/name
+
+# Function to take list of location IDs and
+# - query list_location_sensors() for each location
+# - create a combined DF, adding info from location
+#
+# With this we can filter down to the sensor ids we want.
 
 
+# Function to
+# - pull together an extended timeseries for a single sensor id
+# - put on regular time axis
+# - validate (hourly) measurements
+# - remove all unused columns
+
+
+locations <-
+  openaq::list_locations(
+    iso = "TH",
+    parameters_id = 2,
+    monitor = FALSE # sensors only
+  ) %>%
+  dplyr::mutate(
+    datetime_first = lubridate::as_datetime(datetime_first),
+    datetime_last = lubridate::as_datetime(datetime_last),
+  )
+
+MazamaLocationUtils::table_leaflet(
+  locations,
+  extraVars = c("id", "name", "datetime_first", "datetime_last")
+)
+
+list_location_sensors(
+  locations_id = 2523394
+)
+
+
+data_a <-
+  list_sensor_measurements(
+    sensors_id = 7974127,
+    datetime_from =  MazamaCoreUtils::parseDatetime("2026-01-01", timezone = "UTC"),
+    datetime_to = MazamaCoreUtils::parseDatetime("2026-01-08", timezone = "UTC"),
+    limit = 1000
+  )
+
+# Nice view of diurnal variation in a site in Thailand!
 
