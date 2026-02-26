@@ -28,9 +28,9 @@ measurements appropriate for use in research studies and reports.
 
 ## Audience
 
-The R packages presented are designed for individuals who sometimes need to work
-independently (without the support of IT staff) and provide functionality for
-data ingest and manipulation.
+The R packages presented provide functionality for
+data ingest and manipulation and are designed for individuals who sometimes need to work
+independently (without the support of IT staff).
 The target audience includes anyone who works with Air Quality data from
 regulatory monitors and low cost sensors and who is a regular user of R/RStudio.
 Attendees should have a basic understanding of R data types and common functions.
