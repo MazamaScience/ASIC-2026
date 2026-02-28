@@ -10,8 +10,8 @@
 #  - AirMonitorPlots
 
 # Check that the AirMonitor package is recent enough
-if ( packageVersion("AirMonitor") < "0.4.0" ) {
-  stop("VERSION_ERROR:  Please upgrade to AirMonitor 0.4.0 or later.")
+if ( packageVersion("AirMonitor") < "0.4.5" ) {
+  stop("VERSION_ERROR:  Please upgrade to AirMonitor 0.4.5 or later.")
 }
 
 # Check that the working directory is set properly
