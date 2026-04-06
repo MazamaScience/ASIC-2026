@@ -227,12 +227,10 @@ addAQILegend()
 names(US_AQI)
 
 US_AQI$names_eng
-US_AQI$names_spa
-US_AQI$breaks_PM2.5
 US_AQI$breaks_PM2.5_2024
 
 # Hazardous starts at 250.5 ug/m3
-threshold <- US_AQI$breaks_PM2.5[6]
+threshold <- 225
 
 # Map of locations that experienced HAZARDOUS
 wa %>%
