@@ -3,7 +3,11 @@
 # ------------------------------------------------------------------------------
 # openair
 
-install.packages(c("openair", "worldmet", "openairmaps"))
+###install.packages(c("openair", "worldmet", "openairmaps"))
+
+library(dplyr)
+library(openair)
+library(openairmaps)
 
 m <- openair::importMeta(source = "all", all = TRUE)
 # took a few seconds
