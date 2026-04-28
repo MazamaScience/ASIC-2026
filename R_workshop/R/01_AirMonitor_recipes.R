@@ -16,7 +16,7 @@ if ( packageVersion("AirMonitor") < "0.4.5" ) {
 
 # Check that the working directory is set properly
 if ( !stringr::str_detect(getwd(), "R_workshop$") ) {
-  stop("WD_ERROR:  Please set the working directory to 'ASIC-2024/R_workshop/'")
+  stop("WD_ERROR:  Please set the working directory to 'ASIC-2026/R_workshop/'")
 }
 
 # Open reference docs in a web browser
@@ -179,7 +179,7 @@ monitor <-
 
 nrow(monitor$meta)
 
-# NOTE:  ~160 MB for an entire year!
+# NOTE:  ~90 MB for an entire year!
 
 monitor %>%
   monitor_timeRange()
@@ -229,7 +229,7 @@ names(US_AQI)
 US_AQI$names_eng
 US_AQI$breaks_PM2.5_2024
 
-# Hazardous starts at 250.5 ug/m3
+# Hazardous starts at 225 ug/m3
 threshold <- 225
 
 # Map of locations that experienced HAZARDOUS
@@ -288,7 +288,7 @@ omak %>%
   )
 addAQILegend("topright")
 
-# Plot Washington state daily averages
+# Plot All-Washington daily averages
 wa %>%
   monitor_collapse(
     FUN = mean

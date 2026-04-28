@@ -57,3 +57,4 @@ global_vars.R
 .DS_Store
 
 .env
+.positai

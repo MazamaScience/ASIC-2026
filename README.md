@@ -58,7 +58,7 @@ Jonathan Callahan currently maintains the following R packages:
 
 Each package has a dedicated Slack channel for announcements, support and to
 help build communities of practice around these shared tools. You may request
-an invitation to join from jonathan.callahan@dri.com.
+an invitation to join from jonathan.callahan@dri.edu.
 
 # Workshop Preparation
 

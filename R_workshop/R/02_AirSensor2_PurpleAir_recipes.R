@@ -14,8 +14,8 @@ if ( packageVersion("AirMonitor") < "0.4.5" ) {
 }
 
 # Check that the Sensor2 package is recent enough
-if ( packageVersion("AirSensor2") < "0.5.7" ) {
-  stop("VERSION_ERROR:  Please upgrade to AirSensor2 0.5.7 or later.")
+if ( packageVersion("AirSensor2") < "0.6.0" ) {
+  stop("VERSION_ERROR:  Please upgrade to AirSensor2 0.6.0 or later.")
 }
 
 # Check that the MazamaSpatialUtils package is recent enough
@@ -33,6 +33,7 @@ if ( !stringr::str_detect(getwd(), "R_workshop$") ) {
 browseURL("https://api.purpleair.com/#api-sensors-get-sensors-data")
 browseURL("https://mazamascience.github.io/AirSensor2/reference/index.html")
 
+library(AirMonitor)
 library(AirSensor2)
 
 # Set up spatial data from default directories
@@ -43,8 +44,10 @@ initializeMazamaSpatialUtils()
 library(dotenv)
 dotenv::load_dot_env()
 
+PURPLE_AIR_API_KEY <- Sys.getenv("PURPLE_AIR_API_KEY")
+
 # Check the key
-PurpleAir_checkAPIKey(Sys.getenv("PURPLE_AIR_API_KEY"))
+PurpleAir_checkAPIKey(PURPLE_AIR_API_KEY)
 
 # ----- PurpleAir Synoptic (PAS) -----------------------------------------------
 
@@ -54,7 +57,7 @@ PurpleAir_checkAPIKey(Sys.getenv("PURPLE_AIR_API_KEY"))
 # Create a PAS object
 pas <-
   pas_createNew(
-    api_key = Sys.getenv("PURPLE_AIR_API_KEY"),
+    api_key = PURPLE_AIR_API_KEY,
     fields = PurpleAir_PAS_MINIMAL_FIELDS,
     countryCodes = "US",
     stateCodes = "WA",
@@ -76,9 +79,6 @@ pas %>%
   names() %>%
   print(width = 75)
 
-# A quick look
-dplyr::glimpse(pas)
-
 # Create an interactive map of sensor locations
 pas_leaflet(pas)
 
@@ -88,7 +88,7 @@ pas_leaflet(pas)
 
 LittleStartSchool_hourly <-
   pat_createHourly(
-    api_key = Sys.getenv("PURPLE_AIR_API_KEY"),
+    api_key = PURPLE_AIR_API_KEY,
     pas = pas,
     sensor_index = "95189",        # MV Ambassador @ Little Start School
     startdate = "2026-01-01",
@@ -113,9 +113,9 @@ plot(LittleStartSchool_hourly$data)
 
 # A/B channel comparisonplot
 d <- LittleStartSchool_hourly$data
-plot(d$datetime, d$pm2.5_cf_1, pch=1, cex=1.5, lwd=2, col=adjustcolor('black', 1.0))
-points(d$datetime, d$pm2.5_cf_1_a, pch=15, col=adjustcolor('dodgerblue', 0.5))
-points(d$datetime, d$pm2.5_cf_1_b, pch=15, col=adjustcolor('salmon', 0.5))
+plot(d$datetime, d$pm2.5_atm, pch=1, cex=1.5, lwd=2, col=adjustcolor('black', 1.0))
+points(d$datetime, d$pm2.5_atm_a, pch=15, col=adjustcolor('dodgerblue', 0.5))
+points(d$datetime, d$pm2.5_atm_b, pch=15, col=adjustcolor('salmon', 0.5))
 
 # Convert this PAT object into an AirMonitor "monitor" object using the EPA correction
 LittleStartSchool <- pat_toMonitor(LittleStartSchool_hourly)
@@ -131,14 +131,14 @@ LittleStartSchool %>%
   )
 
 # See how much the data was corrected
-points(d$datetime, d$pm2.5_cf_1, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
+points(d$datetime, d$pm2.5_atm, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
 
 
 # High humidity -----
 
 ConconullyStatePark_hourly <-
   pat_createHourly(
-    api_key = Sys.getenv("PURPLE_AIR_API_KEY"),
+    api_key = PURPLE_AIR_API_KEY,
     pas = pas,
     sensor_index = "109354",        # Conconully State Park
     startdate = "2026-01-01",
@@ -148,11 +148,14 @@ ConconullyStatePark_hourly <-
     verbose = TRUE
   )
 
+# Multi-parameter plot for a quick visual QC
+plot(ConconullyStatePark_hourly$data)
+
 # A/B channel comparisonplot
 d <- ConconullyStatePark_hourly$data
-plot(d$datetime, d$pm2.5_cf_1, pch=1, cex=1.5, lwd=2, col=adjustcolor('black', 1.0))
-points(d$datetime, d$pm2.5_cf_1_a, pch=15, col=adjustcolor('dodgerblue', 0.5))
-points(d$datetime, d$pm2.5_cf_1_b, pch=15, col=adjustcolor('salmon', 0.5))
+plot(d$datetime, d$pm2.5_atm, pch=1, cex=1.5, lwd=2, col=adjustcolor('black', 1.0))
+points(d$datetime, d$pm2.5_atm_a, pch=15, col=adjustcolor('dodgerblue', 0.5))
+points(d$datetime, d$pm2.5_atm_b, pch=15, col=adjustcolor('salmon', 0.5))
 
 # Convert this PAT object into an AirMonitor "monitor" object using the EPA correction
 ConconullyStatePark <- pat_toMonitor(ConconullyStatePark_hourly)
@@ -165,7 +168,7 @@ ConconullyStatePark %>%
   )
 
 # See how much the data was corrected
-points(d$datetime, d$pm2.5_cf_1, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
+points(d$datetime, d$pm2.5_atm, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
 
 # Multi-parameter plot for a quick visual QC
 plot(ConconullyStatePark_hourly$data)
