@@ -39,13 +39,14 @@ especially helpful.
 
 # R Packages for Environmental Time Series
 
-Over the last decade, Mazama Science created multiple open source R packages
+Over the last decade, Jonathan Callahan has been responsible for the creation of
+multiple open source R packages
 focused on environmental monitoring time series. These are used operationally in
 data processing, analysis and visualization systems at the
 US Forest Service [AirFire Team](https://portal.airfire.org/home), in the
 EPA AirNow [Fire & Smoke map](https://fire.airnow.gov) and elsewhere.
 
-Jonathan Callahan currently maintains the following R packages:
+The following R packages are actively maintained:
 
 - [MazamaRollUtils](https://github.com/MazamaScience/MazamaRollUtils) – Fast rolling functions for R written in C++
 - [MazamaCoreUtils](https://github.com/MazamaScience/MazamaCoreUtils) – Utilities to help write production R code
