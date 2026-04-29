@@ -1,6 +1,6 @@
 # Workshop on R packages for Air Quality Data
 
-_Last updated February 04, 2026_
+_Last updated April 29, 2026_
 
 ----
 
@@ -21,7 +21,7 @@ simple, easy-to-learn coding style.
 
 Attendees will become familiar with the **AirMonitor** and **AirSensor2** R
 packages and will be able to quickly download, process and visualize data from
-AirNow and OpenAQ as well as sensor manufacturers PurpleAir and Clarity.
+AirNow and sensor manufacturers PurpleAir, Clarity and AirGradient.
 Various analysis and data visualization functions will be introduced but the
 focus will be on data access and the creation of uniform dataframes of hourly
 measurements appropriate for use in research studies and reports.
@@ -30,7 +30,7 @@ measurements appropriate for use in research studies and reports.
 
 The R packages presented provide functionality for
 data ingest and manipulation and are designed for individuals who sometimes need to work
-independently (without the support of IT staff).
+independently, _i.e._ without the support of IT staff.
 The target audience includes anyone who works with Air Quality data from
 regulatory monitors and low cost sensors and who is a regular user of R/RStudio.
 Attendees should have a basic understanding of R data types and common functions.
@@ -79,36 +79,27 @@ Ensure that you are running [R](https://www.r-project.org) version 4.4 or higher
 Ensure that you have installed [RStudio Desktop](https://posit.co/download/rstudio-desktop/)
 version 2025.09 or higher.
 
-# TODO:  install appropriate packages with `pak`
-
-## CRAN packages
+## Installing packages
 
 Most _(but not all)_ of the packages we will be using are available on CRAN.
-The easiest way to install these is to install the **AirMonitor** (>= 0.4.5)
-package which will recursively install all dependency packages.
+However, several packages have been updated in preparation of this workshop.
+Please install the latest versions of these packages from GitHub.
 
-At the RStudio Console prompt type:
+Type the following commands at the RStudio Console prompt to get fully updated:
 
 ```
 install.packages("AirMonitor")
-...
-```
 
-## Non-CRAN packages
-
-A few of the packages have not yet made it to CRAN. For these, you will need
-to install them directly from GitHub. Tools in the **devtools** pacakge make
-this very easy.
-
-At the RStudio Console prompt type:
-
-```
 install.packages("devtools")
-...
+
+devtools::install_github("mazamascience/MazamaTimeSeries")
+
+devtools::install_github("mazamascience/AirMonitor")
+
 devtools::install_github("mazamascience/AirMonitorPlots")
-...
+
 devtools::install_github("mazamascience/AirSensor2")
-...
+
 ```
 
 ## Spatial data
@@ -117,7 +108,7 @@ The **MazamaSpatialUtils** package is used to enhance spatial metadata when
 ingesting sensor data. Simplified spatial datasets for countries and timezones
 are installed with the package but other, larger datasets must be installed
 manually in a dedicated directory. Work with the **AirSensor2** package requires
-installation of dastasets with state and county boundaries.
+installation of datasets with state and county boundaries.
 
 The default location for spatial data used in this workshop is underneath
 your home directory in `~/Data/Spatial/`. The following chunk of code will
