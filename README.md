@@ -155,6 +155,25 @@ https location:
 git clone https://github.com/MazamaScience/ASIC-2026.git
 ```
 
+# Workshop Contents
+
+During the workshop, we will work through the numbered scripts found in 
+`R_workshop/R/`:
+
+```
+R/
+├── 01_AirMonitor_recipes.R
+├── 02_AirSensor2_PurpleAir_recipes.R
+└── 03_AirSensor2_OpenAQ_recipes.R
+```
+
+Each of these scripts is well commented so that anyone should be able to work 
+through them in order if you have installed the necessary libraries and 
+datasets.
+
+Interim datasets obtained using API keys have been saved to the `data/` directory
+so that you can follow along even if you don't have any API keys.
+
 ---
 
 _Congratulations!_
