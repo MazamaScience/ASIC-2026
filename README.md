@@ -94,13 +94,9 @@ install.packages("AirMonitor")
 install.packages("devtools")
 
 devtools::install_github("mazamascience/MazamaTimeSeries")
-
 devtools::install_github("mazamascience/AirMonitor")
-
 devtools::install_github("mazamascience/AirMonitorPlots")
-
 devtools::install_github("mazamascience/AirSensor2")
-
 ```
 
 ## Spatial data
@@ -150,7 +146,6 @@ At the terminal prompt, type:
 
 ```
 git clone git@github.com:mazamascience/ASIC-2026.git
-...
 ```
 
 If you don't have a git account or can't log in, you may need to use the
@@ -158,7 +153,6 @@ https location:
 
 ```
 git clone https://github.com/MazamaScience/ASIC-2026.git
-...
 ```
 
 ---
