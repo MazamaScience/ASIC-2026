@@ -102,7 +102,7 @@ names(LittleStartSchool_hourly)
 dplyr::glimpse(LittleStartSchool_hourly$meta)
 
 # Multi-parameter 'data' dataframe
-dplyr::glimpse(LittleStartSchool_hourly$data)
+head(LittleStartSchool_hourly$data)
 
 # Multi-parameter plot for a quick visual QC
 plot(LittleStartSchool_hourly$data)
@@ -162,3 +162,4 @@ ConconullyStatePark %>%
 
 # See how much the data was corrected
 points(d$datetime, d$pm2.5_atm, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
+

@@ -173,7 +173,6 @@ airnow_monitor <-
   OpenAQ_createMonitor(
     locations = locations,
     locations_id = 3301366,
-    parameter = "pm25",
     startdate = "2026-04-01",
     enddate = "2026-04-15",
     timezone = "America/Chicago",
@@ -197,7 +196,6 @@ clarity_monitor <-
   OpenAQ_createMonitor(
     locations = locations,
     locations_id = 6207297,
-    parameter = "pm25",
     startdate = "2026-04-01",
     enddate = "2026-04-15",
     timezone = "America/Chicago",
@@ -216,7 +214,6 @@ airgradient_monitor <-
   OpenAQ_createMonitor(
     locations = locations,
     locations_id = 1370216,
-    parameter = "pm25",
     startdate = "2026-04-01",
     enddate = "2026-04-15",
     timezone = "America/Chicago",
@@ -234,16 +231,15 @@ Chicago <-
     clarity_monitor
   )
 
-newNames <- c("datetime", Chicago$meta$provider_name)
+provider_names <- c("datetime", Chicago$meta$provider_name)
 
 Chicago %>%
   monitor_getData() %>%
-  dplyr::rename_with(~ newNames) %>%
+  dplyr::rename_with(~ provider_names) %>%
   head()
 
 Chicago %>%
   AirMonitor::monitor_timeseriesPlot(shadedNight = TRUE, addAQI = TRUE)
-
 AirMonitor::addAQILegend()
 
 # Fancy plots with the AirMonitorPlots package

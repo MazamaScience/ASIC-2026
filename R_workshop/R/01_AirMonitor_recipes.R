@@ -219,6 +219,7 @@ wa %>%
 names(US_AQI)
 
 US_AQI$names_eng
+US_AQI$names_spa
 US_AQI$breaks_PM2.5_2024
 
 # Hazardous starts at 225 ug/m3
@@ -264,12 +265,16 @@ wa %>%
 
 # Print daily max for Omak
 omak %>%
-  monitor_dailyStatistic(
-    FUN = max,
-    minHours = 18,
-    dayBoundary = "LST"
-  ) %>%
+  monitor_dailyStatistic(FUN = max) %>%
   monitor_getData() %>%
+  print()
+
+# Collaborator-friendly version
+omak %>%
+  monitor_dailyStatistic(FUN = max) %>%
+  monitor_getData() %>%
+  dplyr::mutate(datetime = as.Date(datetime)) %>%
+  dplyr::rename_with(~ c("date", "pm25_max")) %>%
   print()
 
 # Plot daily averages for Omak
