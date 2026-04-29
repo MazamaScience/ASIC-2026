@@ -21,7 +21,7 @@ if ( !stringr::str_detect(getwd(), "R_workshop$") ) {
 
 # Open reference docs in a web browser
 browseURL("http://mazamascience.com/presentations/2022/ASIC_Universal_Data_Structures.pdf")
-browseURL("https://mazamascience.github.io/AirMonitor/reference/index.html")
+browseURL("https://mazamascience.github.io/AirMonitor/index.html")
 
 library(AirMonitor)
 
@@ -88,12 +88,6 @@ monitor %>%
   monitor_pull("countyName") %>%                 # get meta$countyName
   table() %>%
   sort(decreasing = TRUE)
-
-# Riverside County
-monitor %>%
-  monitor_filter(stateCode == "CA") %>%
-  monitor_filter(countyName == "Riverside") %>%
-  monitor_leaflet()
 
 # ----- Time series ------------------------------------------------------------
 
@@ -216,8 +210,6 @@ wa %>%
     shadedNight = TRUE,
     addAQI = TRUE
   )
-addAQILegend()
-
 
 # ----- Advanced recipes -------------------------------------------------------
 

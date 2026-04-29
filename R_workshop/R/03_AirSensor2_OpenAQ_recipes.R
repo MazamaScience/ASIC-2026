@@ -43,9 +43,6 @@ dotenv::load_dot_env()
 
 OPENAQ_API_KEY <- Sys.getenv("OPENAQ_API_KEY")
 
-# Set the key once
-openaq::set_api_key(OPENAQ_API_KEY)
-
 # ----- "Locations" dataframe --------------------------------------------------
 
 locations <-
@@ -53,7 +50,7 @@ locations <-
     countryCodes = "US",
     stateCodes = "IL",
     counties = "Cook",
-    api_key = OPENAQ_API_KEY # Not needed if we openaq::set_api_key()
+    api_key = OPENAQ_API_KEY
   )
 
 # It's a dataframe
@@ -211,6 +208,9 @@ clarity_monitor %>%
   monitor_getData() %>%
   head()
 
+clarity_monitor %>%
+  AirMonitor::monitor_timeseriesPlot(shadedNight = TRUE, addAQI = TRUE)
+
 # AirGradient
 airgradient_monitor <-
   OpenAQ_createMonitor(
@@ -226,16 +226,25 @@ airgradient_monitor <-
 airgradient_monitor %>%
   AirMonitor::monitor_timeseriesPlot(shadedNight = TRUE, addAQI = TRUE)
 
+# Create a combined 'monitor' object
 Chicago <-
-  monitor_combine(
+  AirMonitor::monitor_combine(
     airgradient_monitor,
     airnow_monitor,
     clarity_monitor
   )
 
+newNames <- c("datetime", Chicago$meta$provider_name)
+
+Chicago %>%
+  monitor_getData() %>%
+  dplyr::rename_with(~ newNames) %>%
+  head()
 
 Chicago %>%
   AirMonitor::monitor_timeseriesPlot(shadedNight = TRUE, addAQI = TRUE)
+
+AirMonitor::addAQILegend()
 
 # Fancy plots with the AirMonitorPlots package
 Chicago %>%

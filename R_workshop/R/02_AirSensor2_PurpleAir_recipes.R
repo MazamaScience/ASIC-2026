@@ -30,7 +30,6 @@ if ( !stringr::str_detect(getwd(), "R_workshop$") ) {
 }
 
 # Open reference docs in a web browser
-browseURL("https://api.purpleair.com/#api-sensors-get-sensors-data")
 browseURL("https://mazamascience.github.io/AirSensor2/reference/index.html")
 
 library(AirMonitor)
@@ -88,14 +87,11 @@ pas_leaflet(pas)
 
 LittleStartSchool_hourly <-
   pat_createHourly(
-    api_key = PURPLE_AIR_API_KEY,
     pas = pas,
     sensor_index = "95189",        # MV Ambassador @ Little Start School
     startdate = "2026-01-01",
     enddate = "2026-01-08",
-    timezone = "UTC",
-    fields = PurpleAir_PAT_EPA_HOURLY_FIELDS,
-    verbose = TRUE
+    api_key = PURPLE_AIR_API_KEY
   )
 
 # It's a list with two dataframes
@@ -142,10 +138,7 @@ ConconullyStatePark_hourly <-
     pas = pas,
     sensor_index = "109354",        # Conconully State Park
     startdate = "2026-01-01",
-    enddate = "2026-01-08",
-    timezone = "UTC",
-    fields = PurpleAir_PAT_EPA_HOURLY_FIELDS,
-    verbose = TRUE
+    enddate = "2026-01-08"
   )
 
 # Multi-parameter plot for a quick visual QC
@@ -169,7 +162,3 @@ ConconullyStatePark %>%
 
 # See how much the data was corrected
 points(d$datetime, d$pm2.5_atm, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
-
-# Multi-parameter plot for a quick visual QC
-plot(ConconullyStatePark_hourly$data)
-
