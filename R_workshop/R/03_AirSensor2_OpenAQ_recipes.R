@@ -53,6 +53,8 @@ locations <-
     api_key = OPENAQ_API_KEY
   )
 
+if ( !exists("locations") ) load("data/locations.rda")
+
 # It's a dataframe
 class(locations)
 
@@ -133,6 +135,8 @@ airgradient_raw <-
     api_key = OPENAQ_API_KEY
   )
 
+if ( !exists("airgradient_raw") ) load("data/airgradient_raw.rda")
+
 # It's a dataframe
 class(airgradient_raw)
 
@@ -151,6 +155,8 @@ clarity_raw <-
     api_key = OPENAQ_API_KEY
   )
 
+if ( !exists("clarity_raw") ) load("data/clarity_raw.rda")
+
 head(clarity_raw)
 
 # AirNow provides already-corrected PM2.5
@@ -163,6 +169,8 @@ airnow_raw <-
     enddate = "2026-04-15",
     api_key = OPENAQ_API_KEY
   )
+
+if ( !exists("airnow_raw") ) load("data/airnow_raw.rda")
 
 head(airnow_raw)
 
@@ -178,6 +186,8 @@ airnow_monitor <-
     timezone = "America/Chicago",
     api_key = OPENAQ_API_KEY
   )
+
+if ( !exists("airnow_monitor") ) load("data/airnow_monitor.rda")
 
 names(airnow_monitor)
 
@@ -202,6 +212,8 @@ clarity_monitor <-
     api_key = OPENAQ_API_KEY
   )
 
+if ( !exists("clarity_monitor") ) load("data/clarity_monitor.rda")
+
 clarity_monitor %>%
   monitor_getData() %>%
   head()
@@ -220,10 +232,13 @@ airgradient_monitor <-
     api_key = OPENAQ_API_KEY
   )
 
+if ( !exists("airgradient_monitor") ) load("data/airgradient_monitor.rda")
+
 airgradient_monitor %>%
   AirMonitor::monitor_timeseriesPlot(shadedNight = TRUE, addAQI = TRUE)
 
-# Create a combined 'monitor' object
+# ----- Combined 'monitor' object ----------------------------------------------
+
 Chicago <-
   AirMonitor::monitor_combine(
     airgradient_monitor,
@@ -245,5 +260,6 @@ AirMonitor::addAQILegend()
 # Fancy plots with the AirMonitorPlots package
 Chicago %>%
   AirMonitorPlots::monitor_ggDailyHourlyBarplot()
+
 
 

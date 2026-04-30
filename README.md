@@ -93,6 +93,7 @@ install.packages("AirMonitor")
 
 install.packages("devtools")
 
+devtools::install_github("mazamascience/MazamaCoreUtils")
 devtools::install_github("mazamascience/MazamaTimeSeries")
 devtools::install_github("mazamascience/AirMonitor")
 devtools::install_github("mazamascience/AirMonitorPlots")

@@ -65,6 +65,8 @@ pas <-
     location_type = 0 # Outside
   )
 
+if ( !exists("pas") ) load("data/pas.rda")
+
 # It's a dataframe
 class(pas)
 
@@ -93,6 +95,8 @@ LittleStartSchool_hourly <-
     enddate = "2026-01-08",
     api_key = PURPLE_AIR_API_KEY
   )
+
+if ( !exists("LittleStartSchool_hourly") ) load("data/LittleStartSchool_hourly.rda")
 
 # It's a list with two dataframes
 class(LittleStartSchool_hourly)
@@ -128,6 +132,7 @@ LittleStartSchool %>%
 
 # See how much the data was corrected
 points(d$datetime, d$pm2.5_atm, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
+legend("topright", legend=c("raw", "corrected"), pch=c(1, 15))
 
 
 # High humidity -----
@@ -140,6 +145,8 @@ ConconullyStatePark_hourly <-
     startdate = "2026-01-01",
     enddate = "2026-01-08"
   )
+
+if ( !exists("ConconullyStatePark_hourly") ) load("data/ConconullyStatePark_hourly.rda")
 
 # Multi-parameter plot for a quick visual QC
 plot(ConconullyStatePark_hourly$data)
@@ -162,4 +169,49 @@ ConconullyStatePark %>%
 
 # See how much the data was corrected
 points(d$datetime, d$pm2.5_atm, pch=1, cex=1.0, lwd=1.5, col=adjustcolor('black', 0.8))
+legend("topright", legend=c("raw", "corrected"), pch=c(1, 15))
+
+# ----- Diurnal cycles ---------------------------------------------------------
+
+# Oregon
+Deschutes_pas <-
+  pas_createNew(
+    api_key = PURPLE_AIR_API_KEY,
+    fields = PurpleAir_PAS_MINIMAL_FIELDS,
+    countryCodes = "US",
+    stateCodes = "OR",
+    counties = c("Deschutes"),
+    lookbackDays = 1,
+    location_type = 0 # Outside
+  )
+
+if ( !exists("Deschutes_pas") ) load("data/Deschutes_pas.rda")
+
+pas_leaflet(Deschutes_pas)
+
+Deschutes_Public_Library_hourly <-
+  pat_createHourly(
+    api_key = PURPLE_AIR_API_KEY,
+    pas = Deschutes_pas,
+    sensor_index = "148777",
+    startdate = "2026-04-25 00:00",
+    enddate = "2026-04-30 06:00",
+    timezone = "America/Los_Angeles"
+  )
+
+if ( !exists("Deschutes_Public_Library") ) load("data/Deschutes_Public_Library.rda")
+
+Deschutes_Public_Library <- pat_toMonitor(Deschutes_Public_Library_hourly)
+
+Deschutes_Public_Library %>%
+  monitor_timeseriesPlot(shadedNight = TRUE, addAQI = TRUE)
+
+# Using the AirMonitorPlots package
+
+Deschutes_Public_Library %>%
+  AirMonitorPlots::monitor_ggTimeseries()
+
+Deschutes_Public_Library %>%
+  AirMonitorPlots::monitor_ggDailyByHour()
+
 
