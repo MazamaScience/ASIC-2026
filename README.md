@@ -1,4 +1,4 @@
-# Workshop on R packages for Air Quality Data
+# Workshop on R Packages for Air Quality Data
 
 _Last updated April 29, 2026_
 
